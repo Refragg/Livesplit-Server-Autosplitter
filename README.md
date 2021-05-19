@@ -12,7 +12,7 @@ You can make your autosplitters and add them to the Autosplitters directory and 
 
 Run the program with elevated privileges (so that it can read the memory from the game's process)
 
-You will need the Livesplit Server to be running on the default port
+You will need the Livesplit Server to be running on the default port (use the LiveSplit.Server.dll in the repo which adds necessary stuff for this to work (https://github.com/LiveSplit/LiveSplit.Server/pull/35))
 
 There is a CLI which allows you to modify the settings while it's running, type help when running the program for more info
 
