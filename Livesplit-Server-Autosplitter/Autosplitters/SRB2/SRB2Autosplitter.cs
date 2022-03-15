@@ -24,17 +24,15 @@ namespace Livesplit_Server_Autosplitter
     
         private CustomVars vars = new CustomVars();
     
-        public SRB2StateAppImage current = new SRB2StateAppImage();
-        public SRB2StateAppImage old = new SRB2StateAppImage();
+        public SRB2State current = new SRB2State();
+        public SRB2State old = new SRB2State();
     
         public int refreshRate = 35;
         public void Init()
         {
-            string version = "";
-            if (Program.Runtime._game.MainModule.ModuleMemorySize == 4542464) version = "2.2.9";
-            if (Program.Runtime._game.MainModule.ModuleMemorySize == 3543040) version = "2.2.9";
-            
-            if(version == "2.2.9")
+            string version = "2.2.10";
+
+            if(version == "2.2.10")
             {
                 vars.branch = 2;
             }
@@ -100,9 +98,16 @@ namespace Livesplit_Server_Autosplitter
                 {
                     if(old.mframecounter != 0 && current.mframecounter == 0)
                     {
-                        return true;
+	                    return true;
                     }
+	                /*
+	                if (current.start == 1 && old.start == 0)
+	                {
+		                return true;
+	                }
+                    */
                 }
+                /*
                 if(settings.Reader["TA_S"])
                 {
                     return (current.start == 1 && current.start != old.start);
@@ -111,6 +116,7 @@ namespace Livesplit_Server_Autosplitter
                 {
                     return (current.start == 1 && current.start != old.start && current.TA == 0);
                 }
+                */
             }
             return false;
         }

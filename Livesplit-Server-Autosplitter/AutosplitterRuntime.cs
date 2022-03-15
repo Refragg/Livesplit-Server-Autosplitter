@@ -112,7 +112,7 @@ namespace Livesplit_Server_Autosplitter
 
             _init_completed = false;
             _game = process;
-            Autosplitter.current = new SRB2StateAppImage();
+            Autosplitter.current = new SRB2State();
 
             if (Autosplitter.current.GameVersion == "")
             {
@@ -177,6 +177,8 @@ namespace Livesplit_Server_Autosplitter
             // {
             //     Console.WriteLine("size: {0}, name: {1}, baseAddress: {2}", processModule.ModuleMemorySize, processModule.ModuleName, processModule.BaseAddress.ToString());
             // }
+            
+            Console.WriteLine("PID: {0}", _game.Id);
             Console.WriteLine("size: {0}, name: {1}, baseAddress: {2}", _game.MainModule.ModuleMemorySize, _game.MainModule.ModuleName, string.Format("0x{0:X}", _game.MainModule.BaseAddress.ToInt64()));
         }
 
