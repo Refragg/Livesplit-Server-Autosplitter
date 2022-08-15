@@ -206,19 +206,19 @@ namespace Livesplit_Server_Autosplitter
             if (CurrentTimerPhase == TimerPhase.Running || CurrentTimerPhase == TimerPhase.Paused)
             {
                 if (Autosplitter.IsLoading())
-                    Program.socket.Send(SocketMessages.PauseGameTime);
+                    PauseGameTime();
                 else
-                    Program.socket.Send(SocketMessages.UnpauseGameTime);
+                    UnpauseGameTime();
 
                 TimeSpan game_time = Autosplitter.GameTime();
-                Program.socket.Send(SocketMessages.SetGameTime(game_time));
+                SetGameTime(game_time);
 
                 if (Autosplitter.Reset())
                 {
                     if (reset)
                     {
                         Console.WriteLine("reset");
-                        Program.socket.Send(SocketMessages.Reset);
+                        Reset();
                     }
                 }
                 else if (Autosplitter.Split())
@@ -226,7 +226,7 @@ namespace Livesplit_Server_Autosplitter
                     if (split)
                     {
                         Console.WriteLine("split");
-                        Program.socket.Send(SocketMessages.Split);
+                        Split();
                     }
                 }
             }
@@ -238,7 +238,7 @@ namespace Livesplit_Server_Autosplitter
                     if (start)
                     {
                         Console.WriteLine("start");
-                        Program.socket.Send(SocketMessages.StartTimer);
+                        Start();
                     }
                 }
             }
@@ -252,5 +252,17 @@ namespace Livesplit_Server_Autosplitter
             Program.socket.Send(SocketMessages.InitGameTime);
             Program.socket.Send(SocketMessages.PauseGameTime);
         }
+
+        public static int Start() => Program.socket.Send(SocketMessages.StartTimer);
+
+        public static int Split() => Program.socket.Send(SocketMessages.Split);
+
+        public static int Reset() => Program.socket.Send(SocketMessages.Reset);
+
+        public static int SetGameTime(TimeSpan time) => Program.socket.Send(SocketMessages.SetGameTime(time));
+        
+        public static int PauseGameTime() => Program.socket.Send(SocketMessages.PauseGameTime);
+        
+        public static int UnpauseGameTime() => Program.socket.Send(SocketMessages.UnpauseGameTime);
     }
 }
