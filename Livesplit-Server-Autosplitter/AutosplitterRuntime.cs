@@ -61,7 +61,7 @@ namespace Livesplit_Server_Autosplitter
 
         public TimeSpan? CurrentRTA;
 
-        public SRB2Autosplitter Autosplitter = new ();
+        public PortalTwoAutosplitter Autosplitter = new ();
 
         public bool start = true;
         public bool split = true;
@@ -112,7 +112,7 @@ namespace Livesplit_Server_Autosplitter
 
             _init_completed = false;
             _game = process;
-            Autosplitter.current = new SRB2State();
+            Autosplitter.current = new PortalTwoState();
 
             if (Autosplitter.current.GameVersion == "")
             {
