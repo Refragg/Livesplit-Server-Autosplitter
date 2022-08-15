@@ -65,6 +65,28 @@ namespace Livesplit_Server_Autosplitter
             Marshal.Copy((IntPtr)ptr, value, 0, count);
             return res != -1;
         }
+        
+        public unsafe static bool ReadArrayHeap(IntPtr address, int count, out byte[] value, Process _process)
+        {
+            int size = Unsafe.SizeOf<byte>() * count;
+            byte* ptr = (byte*)Marshal.AllocHGlobal(size).ToPointer();
+            iovec localIo = new iovec
+            {
+                iov_base = ptr,
+                iov_len = size
+            };
+            
+            iovec remoteIo = new iovec
+            {
+                iov_base = address.ToPointer(),
+                iov_len = size
+            };
+
+            var res = process_vm_readv(_process.Id, &localIo, 1, &remoteIo, 1, 0);
+            value = new byte[count];
+            Marshal.Copy((IntPtr)ptr, value, 0, count);
+            return res != -1;
+        }
 
         public static bool ReadString(IntPtr address, int count, out string value, Process process)
         {
